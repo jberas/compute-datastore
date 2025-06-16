@@ -9,6 +9,7 @@ jobs:
   release:
     name: Release with Conventional Commits
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
       pull-requests: write
@@ -17,13 +18,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Release using conventional commits
+      - name: Run Release Please
         id: release
-        uses: google-github-actions/release-please-action@v4
+        uses: googleapis/release-please-action@v4
         with:
           release-type: terraform-module
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Zip module if new release was created
+      - name: Zip Terraform module
         if: steps.release.outputs.release_created == 'true'
         run: |
           mkdir module
@@ -35,3 +38,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: terraform-module.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
