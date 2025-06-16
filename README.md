@@ -88,6 +88,7 @@ terraform apply -var-file="dev.tfvars"
 ```
 
 4. Confirm the deployment and inspect output values.
+5. (Please be sure to have AWS creds set at the environment level before applying)
 
 
 ### Networking and Security Notes
