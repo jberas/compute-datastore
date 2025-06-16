@@ -1,0 +1,9 @@
+name             = "jb-super-amazing-app-test-june"
+region           = "us-east-1"
+vpc_id           = "vpc-08e644cac58f41793"
+ec2_subnet_id    = "subnet-0f2b9951e08cd0410"
+rds_subnet_ids   = ["subnet-019f656d1f29425b5", "subnet-08560ae078f9b6552"]
+datastore_type   = "s3"
+allowed_ports    = [22, 80, 443]
+allowed_cidr_blocks = ["10.0.0.0/16"]
+instance_type    = "t3.micro"
