@@ -10,6 +10,10 @@ locals {
   })
 }
 
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
 resource "aws_security_group" "ec2_sg" {
   name        = "${var.name}-ec2-sg"
   description = "Security group for EC2 instance"
@@ -120,7 +124,11 @@ resource "aws_iam_instance_profile" "datastore_profile" {
 
 resource "aws_s3_bucket" "s3" {
   count  = var.datastore_type == "s3" ? 1 : 0
-  bucket = "${var.name}-bucket"
+  bucket = "${var.name}-bucket-${random_id.bucket_suffix.hex}"
+
+  tags = {
+    Name = "${var.name}-bucket"
+  }
 }
 
 resource "aws_dynamodb_table" "ddb" {
