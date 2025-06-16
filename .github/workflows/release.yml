@@ -7,24 +7,23 @@ on:
 
 jobs:
   release:
-    name: Release Please + Artifact Upload
+    name: Release with Conventional Commits
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Run Release Please
+      - name: Release using conventional commits
         id: release
         uses: google-github-actions/release-please-action@v4
         with:
           release-type: terraform-module
 
-      # Only run if a new release was created
-      - name: Zip Terraform module
+      - name: Zip module if new release was created
         if: steps.release.outputs.release_created == 'true'
         run: |
           mkdir module
@@ -36,4 +35,3 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: terraform-module.zip
-
