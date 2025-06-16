@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/jberas/compute-datastore/compare/v0.1.0...v0.2.0) (2025-06-16)
+
+
+### Features
+
+* trigger release test ([37ef6ae](https://github.com/jberas/compute-datastore/commit/37ef6ae145420a87b491a32a4a9dbd39437e90b9))
+* trigger release test ([729ab37](https://github.com/jberas/compute-datastore/commit/729ab372080f5dd6393eb49160417a0fa8c59b07))
+
 ## 0.1.0 (2025-06-16)
 
 
