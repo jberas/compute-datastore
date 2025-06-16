@@ -1,6 +1,6 @@
 # Terraform Module: Compute + Datastore Provisioner (EC2 + RDS/S3/DynamoDB)
 
-This Terraform module provisions an **EC2 instance** along with an optional **datastore resource** (Amazon RDS, S3, or DynamoDB). If the datastore is of type S3 or DynamoDB, it will also configure:
+This Terraform module provisions an **EC2 instance** along with a **datastore resource** (Choose between Amazon RDS, S3, or DynamoDB). If the datastore is of type S3 or DynamoDB, it will also configure:
 - An IAM role and instance profile granting appropriate access.
 - A boot-time installation of the AWS CLI v2 via Cloud Init.
 
@@ -26,7 +26,7 @@ compute_datastore_module/
 | `dynamodb`    | Creates a DynamoDB table + IAM permissions |
 
 
-## 🚀 Usage Example
+##  Usage Example
 
 ```hcl
 module "compute_stack" {
