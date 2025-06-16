@@ -1,0 +1,31 @@
+name: Publish Release Artifact
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    name: Upload GitHub Release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Zip Terraform module
+        run: |
+          mkdir module
+          cp -r *.tf *.md cloud_init.tmpl.yaml module/ 2>/dev/null || true
+          zip -r terraform-module.zip module
+
+      - name: Upload GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: terraform-module.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
