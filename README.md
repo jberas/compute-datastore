@@ -89,6 +89,15 @@ terraform apply -var-file="dev.tfvars"
 
 4. Confirm the deployment and inspect output values.
 
+
+### Networking and Security Notes
+
+- RDS is deployed in a user-defined subnet group for high availability.
+- Security groups are automatically created for both EC2 and RDS.
+- RDS security group allows access on port 5432 from any EC2 instance placed in the EC2 security group.
+- You must explicitly provide `allowed_cidr_blocks` to control access to the EC2 instance; there is **no default**.
+- RDS is provisioned with default credentials (`admin` / `Password1234`). You should change these in production.
+- IAM permissions for S3 and DynamoDB are broad (`*`). You can modify the policy to scope it further.
 - The AWS CLI installation is handled via a cross-distro compatible Cloud Init script using the `runcmd` directive.
 
 ---
@@ -107,15 +116,6 @@ This module includes a GitHub Actions workflow (`.github/workflows/release.yml`)
 - When that PR is merged, it:
   - Tags a release like `v1.1.0`
   - Publishes it as a GitHub Release
-
-### Networking and Security Notes
-
-- RDS is deployed in a user-defined subnet group for high availability.
-- Security groups are automatically created for both EC2 and RDS.
-- RDS security group allows access on port 5432 from any EC2 instance placed in the EC2 security group.
-- You must explicitly provide `allowed_cidr_blocks` to control access to the EC2 instance; there is **no default**.
-- RDS is provisioned with default credentials (`admin` / `Password1234`). You should change these in production.
-- IAM permissions for S3 and DynamoDB are broad (`*`). You can modify the policy to scope it further.
 
 ### Commit Message Examples
 
