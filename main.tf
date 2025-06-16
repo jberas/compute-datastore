@@ -6,7 +6,7 @@ locals {
   needs_iam = contains(["s3", "dynamodb"], var.datastore_type)
 
   rendered_cloud_init = templatefile("${path.module}/cloud_init.tmpl.yaml", {
-    extra_runcmd = join("\n  - ", var.extra_commands)
+    extra_runcmd = length(var.extra_commands) > 0 ? join("\n  - ", var.extra_commands) : ""
   })
 }
 
@@ -71,14 +71,12 @@ resource "aws_db_subnet_group" "db_subnets" {
 }
 
 resource "aws_instance" "ec2" {
-  ami                  = var.ami_id != "" ? var.ami_id : data.aws_ami.amazon_linux.id
-  instance_type        = var.instance_type
-  iam_instance_profile = local.needs_iam ? aws_iam_instance_profile.datastore_profile[0].name : null
-  user_data            = local.needs_iam ? base64encode(local.rendered_cloud_init) : null
-  subnet_id            = var.ec2_subnet_id
-  vpc_security_group_ids = [
-    aws_security_group.ec2_sg.id
-  ]
+  ami                    = var.ami_id != "" ? var.ami_id : data.aws_ami.amazon_linux.id
+  instance_type          = var.instance_type
+  iam_instance_profile   = local.needs_iam ? aws_iam_instance_profile.datastore_profile[0].name : null
+  user_data              = local.needs_iam ? base64encode(local.rendered_cloud_init) : null
+  subnet_id              = var.ec2_subnet_id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
   tags = {
     Name = "${var.name}-ec2"
