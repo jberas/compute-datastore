@@ -5,3 +5,4 @@
 - Using cloud init as a standardized means to install binaries
 - Installing AWS CLI to be able to interact with s3 or dynamo
 - Github actions creates releases for module  based on Conventional Commits
+- Could have used IAM auth for RDS access.
