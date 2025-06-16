@@ -107,7 +107,7 @@ terraform apply -var-file="dev.tfvars"
 
 # 🔁 GitHub Actions: Automated Releases
 
-This module includes a GitHub Actions workflow (`.github/workflows/release.yml`) powered by [release-please](https://github.com/google-github-actions/release-please-action).
+This module includes a GitHub Actions workflow powered by [release-please](https://github.com/google-github-actions/release-please-action).
 
 ###  What It Does
 
