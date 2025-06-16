@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release Please + Artifact Upload
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Release Please
+        id: release
+        uses: google-github-actions/release-please-action@v4
+        with:
+          release-type: terraform-module
+
+      # Only run if a new release was created
+      - name: Zip Terraform module
+        if: steps.release.outputs.release_created == 'true'
+        run: |
+          mkdir module
+          cp -r *.tf *.md cloud_init.tmpl.yaml module/ 2>/dev/null || true
+          zip -r terraform-module.zip module
+
+      - name: Upload release artifact
+        if: steps.release.outputs.release_created == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: terraform-module.zip
+
