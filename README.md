@@ -105,9 +105,9 @@ This module includes a GitHub Actions workflow (`.github/workflows/release.yml`)
 
 ###  What It Does
 
-- Analyzes commit history on `main` using Conventional Commits
+- On merge it analyzes commit history on `main` using Conventional Commits
 - Automatically determines the next semantic version
-- Creates a release PR with `CHANGELOG.md` updates and version bump
+- Creates a new release PR with `CHANGELOG.md` updates and version bump
 - When that PR is merged, it:
   - Tags a release like `v1.1.0`
   - Publishes it as a GitHub Release
@@ -117,7 +117,7 @@ This module includes a GitHub Actions workflow (`.github/workflows/release.yml`)
 
 - RDS is deployed in a user-defined subnet group for high availability.
 - Security groups are automatically created for both EC2 and RDS.
-- RDS security group **automatically allows access** on port 5432 from any EC2 instance placed in the EC2 security group.
+- RDS security group allows access on port 5432 from any EC2 instance placed in the EC2 security group.
 - You must explicitly provide `allowed_cidr_blocks` to control access to the EC2 instance; there is **no default**.
 
 ### Commit Message Examples
@@ -131,5 +131,5 @@ This module includes a GitHub Actions workflow (`.github/workflows/release.yml`)
 You can then use the module like:
 
 ```hcl
-source = "git::https://github.com/your-org/compute-datastore-module.git?ref=v1.1.0"
+source = "git::https://github.com/your-org/compute-datastore-module.git?ref=vX.X.X"
 ```
